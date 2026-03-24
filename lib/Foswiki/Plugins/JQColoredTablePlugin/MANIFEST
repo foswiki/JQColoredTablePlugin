@@ -1,0 +1,14 @@
+!noci
+data/System/JQColoredTablePlugin.txt 0644
+lib/Foswiki/Plugins/JQColoredTablePlugin/Core.pm 0644
+lib/Foswiki/Plugins/JQColoredTablePlugin/DEPENDENCIES 0644
+lib/Foswiki/Plugins/JQColoredTablePlugin/MANIFEST 0644
+lib/Foswiki/Plugins/JQColoredTablePlugin/JQuery.pm 0644
+lib/Foswiki/Plugins/JQColoredTablePlugin.pm 0644
+pub/System/JQColoredTablePlugin/coloredTable.css 0644
+pub/System/JQColoredTablePlugin/coloredTable.css.gz 0644
+pub/System/JQColoredTablePlugin/coloredTable.js 0644
+pub/System/JQColoredTablePlugin/coloredTable.js.gz 0644
+pub/System/JQColoredTablePlugin/coloredTable.uncompressed.css 0644
+pub/System/JQColoredTablePlugin/coloredTable.uncompressed.js 0644
+pub/System/JQColoredTablePlugin/Makefile 0644

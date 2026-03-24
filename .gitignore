@@ -1,0 +1,16 @@
+/JQColoredTableContrib_installer.pl
+/JQColoredTableContrib_installer
+/JQColoredTableContrib.md5
+/JQColoredTableContrib.sha1
+/JQColoredTableContrib.tgz
+/JQColoredTableContrib.zip
+/JQColoredTablePlugin_installer.pl
+/JQColoredTablePlugin.zip
+
+pub/**/.store
+data/**/.store
+
+pub/System/JQColoredTablePlugin/coloredTable.css
+pub/System/JQColoredTablePlugin/coloredTable.css.gz
+pub/System/JQColoredTablePlugin/coloredTable.js
+pub/System/JQColoredTablePlugin/coloredTable.js.gz

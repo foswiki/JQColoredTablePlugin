@@ -1,0 +1,223 @@
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1747919147" format="1.1" version="1"}%
+---+!! %TOPIC%
+%FORMFIELD{"Description"}%
+
+%TOC%
+
+---++ Description
+
+This plugin allows to colorize an html table based on certain matching rules. Coloring the table
+is performed on the client side, that is javascript is used to apply the styling. This means
+colors apply dynamically, but also that these won't be able to be printed out or exported in a pdf document.
+
+The following rules can be used:
+
+   * match keywords using string comparison
+   * match keywords based on regular expression matching
+   * find table cells whose content is above or below certain values
+   * find table cells holding dates matching before or after a date
+
+When a match is found css styles or classes can be applied.
+
+---++ Examples
+
+You type:
+
+<verbatim>
+%COLOREDTABLE{
+   keyword_1="error"
+   class_1="foswikiAlert"
+}%
+| *header* | *header* | *header* | *header* |
+| data | data | data | error |
+| data | data | data | data |
+| data | data | data | error |
+| data | data | data | data |
+%ENDCOLOREDTABLE%
+</verbatim>
+
+<div %IF{"not context JQColoredTablePluginEnabled" then="style='display:none'"}%>
+You get (if installed):
+
+%COLOREDTABLE{
+   keyword_1="error"
+   class_1="foswikiAlert"
+}%
+| *header* | *header* | *header* | *header* |
+| data | data | data | error |
+| data | data | data | data |
+| data | data | data | error |
+| data | data | data | data |
+%ENDCOLOREDTABLE%
+</div>
+
+You type:
+
+<verbatim>
+%COLOREDTABLE{
+   type="regex"
+   highlight="parent"
+   style="font-weight-bold"
+
+   keyword_1="no error"
+   style_1="background:var(--color-green);color:#fff"
+
+   keyword_2="\\berror\\b"
+   style_2="background:var(--color-error);color:#fff"
+
+   keyword_3="\\berror2\\b"
+   style_3="background:pink;color:#cd2543"
+
+}%
+| *head* | *head* | *head* | *head* |
+| data | data | data | error |
+| data | data | data | no error |
+| data | data | data | data |
+| data | data | data | error2 |
+%ENDCOLOREDTABLE%
+</verbatim>
+
+<div %IF{"not context JQColoredTablePluginEnabled" then="style='display:none'"}%>
+You get (if installed):
+
+%COLOREDTABLE{
+   type="regex"
+   highlight="parent"
+   style="font-weight-bold"
+
+   keyword_1="no error"
+   style_1="background:var(--color-green);color:#fff"
+
+   keyword_2="\\berror\\b"
+   style_2="background:var(--color-error);color:#fff"
+
+   keyword_3="\\berror2\\b"
+   style_3="background:pink;color:#cd2543"
+}%
+| *head* | *head* | *head* | *head* |
+| data | data | data | error |
+| data | data | data | no error |
+| data | data | data | data |
+| data | data | data | error2 |
+%ENDCOLOREDTABLE%
+</div>
+
+You type:
+
+<verbatim>
+%COLOREDTABLE{
+   type="gt"
+   keyword_1="1.0"
+   style_1="background:var(--color-error);color:#fff"
+   style="font-weightbold"
+}%
+| *head* | *head* | *head* | *head* |
+| data | data | data | 1.0 |
+| data | data | data | 0.5 |
+| data | data | data | 1.5 |
+| data | data | data | 2.0 |
+%ENDCOLOREDTABLE%
+</verbatim>
+
+<div %IF{"not context JQColoredTablePluginEnabled" then="style='display:none'"}%>
+You get (if installed):
+
+%COLOREDTABLE{
+   type="gt"
+   keyword_1="1.0"
+   style_1="background:var(--color-error);color:#fff"
+   style="font-weightbold"
+}%
+| *head* | *head* | *head* | *head* |
+| data | data | data | 1.0 |
+| data | data | data | 0.5 |
+| data | data | data | 1.5 |
+| data | data | data | 2.0 |
+%ENDCOLOREDTABLE%
+</div>
+
+You type (needs <nop>DateManipPlugin):
+
+<verbatim>
+%COLOREDTABLE{
+   type="after" 
+   highlight="parent" 
+
+   keyword_1="%DATETIME%" 
+   style_1="background:var(--color-primary); color:#fff"
+}%
+
+| *head* | *head* | *head* | *head* |
+| data | data | data | %DATETIME{delta="+24h" format="$day $mon $year"}% |
+| data | data | data | %DATETIME{delta="+24h" format="$day $mon $year $hour:$min"}% |
+| data | data | data | %DATETIME{delta="-2h"}% |
+| data | data | data | %DATETIME{delta="-1h"}% |
+| data | data | data | %DATETIME% |
+| data | data | data | %DATETIME{delta="+1h"}% |
+| data | data | data | %DATETIME{delta="+2h"}% |
+%ENDCOLOREDTABLE%
+</verbatim>
+
+<div %IF{"not context JQColoredTablePluginEnabled and not context DateManipPluginEnabled" then="style='display:none'"}%>
+You get (if installed):
+
+%COLOREDTABLE{
+   type="after" 
+   highlight="parent" 
+
+   keyword_1="%DATETIME%" 
+   style_1="background:var(--color-primary); color:#fff"
+}%
+
+| *head* | *head* | *head* | *head* |
+| data | data | data | %DATETIME{delta="+24h" format="$day $mon $year"}% |
+| data | data | data | %DATETIME{delta="+24h" format="$day $mon $year $hour:$min"}% |
+| data | data | data | %DATETIME{delta="-2h"}% |
+| data | data | data | %DATETIME{delta="-1h"}% |
+| data | data | data | %DATETIME% |
+| data | data | data | %DATETIME{delta="+1h"}% |
+| data | data | data | %DATETIME{delta="+2h"}% |
+%ENDCOLOREDTABLE%
+</div>
+
+---++ Syntax
+
+All tables to be colorized have to be encosed in =%COLOREDTABLE= and =%ENDCOLOREDTABLE=. Configured rules apply
+to all tables within. Note that =%COLOREDTABLE= sections cannot be nested. Rules are configured using
+
+=%COLOREDTABLE{&lt;params>}=:
+
+| *Parameter* | *Description* | *Default* |
+| select | jQuery selector to find the table within the colored table section | current element |
+| highlight | defines the element to colorize, possible values are =this=, =parent=, =prev=, =next=, or a jQuery selector | =this= |
+| type | kind of matching operation, possible values are =string=, =regex=, =integer=, =float=, =gt=, =lt=, =date=, =before=, =after= | =string= |
+| casesensitive | boolean to specify case sensitivity, =true= or =false= | =false= |
+| style | default styles applied to any match | |
+| class | default class applied to any match | |
+| keyword_1, keyword_2, ... , keyword_n | keywords/regexes/integers/floats/dates to match | |
+| style_1, style_2, ... , style_n | styles to be applied to the corresponding match | |
+| class_1, class_2, ..., class_n | css class to be applied to the corresponding match | |
+
+Any starting =%COLOREDTABLE= has to be closed by =%ENDCOLOREDTABLE= to make it work.
+
+---++ Installation Instructions
+%$INSTALL_INSTRUCTIONS%
+
+---++ Dependencies
+%$DEPENDENCIES%
+
+---++ Change History
+
+%TABLE{columnwidths="7em" tablewidth="100%"}%
+|  24 Mar 2026 | initial release |
+
+%META:FORM{name="PackageForm"}%
+%META:FIELD{name="Author" title="Author" value="Michael Daum"}%
+%META:FIELD{name="Version" title="Version" value="%25$VERSION%25"}%
+%META:FIELD{name="Release" title="Release" value="%25$RELEASE%25"}%
+%META:FIELD{name="Description" title="Description" value="%25$SHORTDESCRIPTION%25"}%
+%META:FIELD{name="Repository" title="Repository" value="https://github.com/foswiki/%25$ROOTMODULE%25"}%
+%META:FIELD{name="Copyright" title="Copyright" value="2024-2026, MichaelDaum, All Rights Reserved"}%
+%META:FIELD{name="License" title="License" value="GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]])"}%
+%META:FIELD{name="Home" title="Home" value="http://foswiki.org/Extensions/%25$ROOTMODULE%25"}%
+%META:FIELD{name="Support" title="Support" value="http://foswiki.org/Support/%25$ROOTMODULE%25"}%
